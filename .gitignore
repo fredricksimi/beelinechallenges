@@ -1,4 +1,3 @@
-challengegov/settings.py
 venv/
 winvenv/
 *.sqlite3
