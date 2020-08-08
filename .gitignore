@@ -5,3 +5,4 @@ winvenv/
 media/
 .vscode
 .env
+__pycache__/
