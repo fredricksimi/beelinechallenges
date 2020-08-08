@@ -1,0 +1,7 @@
+challengegov/settings.py
+venv/
+winvenv/
+*.sqlite3
+media/
+.vscode
+.env
