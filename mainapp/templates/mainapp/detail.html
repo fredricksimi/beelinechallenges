@@ -158,9 +158,9 @@
             <div class="col text-right">
             {% if user.is_authenticated %}
               {% if is_favourite %}
-                <a href="{% url 'mainapp:favourite_post' the_post.id the_post.slug %}" class="btn btn-sm btn-success">Bookmarked<i class="fas fa-check ml-2"></i></a>
+                <a href="{% url 'mainapp:favourite_post' the_post.id the_post.slug %}" id="removemark" class="btn btn-sm btn-success">Bookmarked<i class="fas fa-check ml-2"></i></a>
               {% else %}
-              <a href="{% url 'mainapp:favourite_post' the_post.id the_post.slug%}" class="btn btn-sm btn-primary">Bookmark<i class="fas fa-bookmark ml-2"></i></a>
+              <a href="{% url 'mainapp:favourite_post' the_post.id the_post.slug%}" id="addmark" class="btn btn-sm btn-primary">Bookmark<i class="fas fa-bookmark ml-2"></i></a>
               {% endif %}
             {% endif %}
             </div>

@@ -48,7 +48,7 @@ h1 {
 }
 .cardi .wrapper {
   background-color: #fff;
-  min-height: 540px;
+  min-height:500px;
   position: relative;
   overflow: hidden;
   box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.2);
@@ -228,8 +228,8 @@ h1 {
 }
 .example-2 .data {
   color: #fff;
-  -webkit-transform: translateY(calc(70px + 4em));
-          transform: translateY(calc(70px + 4em));
+  -webkit-transform: translateY(calc(0px + 4em));
+          transform: translateY(calc(0px + 4em));
 }
 .example-2 .title a {
   color: #000;

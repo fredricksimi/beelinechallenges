@@ -92,7 +92,6 @@
                     <li class="nav-item">
                     <a href="{% url 'mainapp:submit-a-challenge'%}" target="_blank" class="nav-link"><i class="fas fa-paper-plane mr-2"></i>Submit a Challenge</a>
                     </li>
-                    
                     {% if not user.is_authenticated %}
                     <li class="nav-item">
                         <a href="{% url 'users:account_login' %}" class="nav-link" >Login or Register</a>
@@ -128,58 +127,53 @@
         </section>
 <section class="section section-lg bg-soft">
     <div class="container-fluid">
-        <div class="row">
-        {% for post in posts.object_list %}
-        <div class="col-lg-4 col-md-6 col-sm-12 mt-5">
-            <div class="example-2 cardi" style="background-color:transparent;">
-                <div class="wrapper" style="border-radius: 10px;">
-                    <img src="{{post.image.url}}" class="card-img-top" style="height:50%;">
-                    <div class="header">
-                        <div class="date" style="background-color:#EE5050; padding:2px 4px; border-radius:5px;position: absolute;top: 14px;left: 16px;">
-                            {% if post.status == 'Open' %}
-                            <span class="day font-weight-bolder">{{post.open_until|timeuntil:post.date_posted}} left</span>
-                            {% else %}
-                            <span class="day font-weight-bolder">Ongoing</span>
-                            {% endif %}
-                        </div>
-                        <ul class="menu-content" style="position: absolute;top: 14px;right: 16px;">
-                        {% if user.is_authenticated %}
-                        {% for cha in post.favourite.all %}
-                        {% if cha.username %}
-                            <li>
-                                <a class="fas fa-bookmark" style="box-shadow: 0 8px 16px rgba(0, 0, 0, 0.95);"></a>
-                            </li>
+        <div class="rowa">
+            <div class="card-deck">
+                {% for post in posts.object_list %}
+                <div class="card-animate-up-3 col-md-4 mt-5" style="border-radius:15px;">
+                    <div class="date" style="background-color:#EE5050; padding:2px 4px; border-radius:5px;position: absolute;top: 14px;left:30px;">
+                        {% if post.status == 'Open' %}
+                        <span class="day font-weight-bolder text-white">{{post.open_until|timeuntil:post.date_posted}} left</span>
                         {% else %}
-                            <li>
-                                <a class="far fa-bookmark" style="box-shadow: 0 8px 16px rgba(0, 0, 0, 0.95);"></i>
-                            </li>
+                        <span class="day font-weight-bolder text-white">Ongoing</span>
+                        {% endif %}
+                    </div>
+                    <ul class="menu-content" style="position: absolute;top: 14px;right: 30px;">
+                        {% if user.is_authenticated %}
+                        {% for cha in post.favourite.all%}
+                        {% if cha.username %}
+                        <li>
+                            <a class="fas fa-bookmark" style="box-shadow: 0 8px 16px rgba(0, 0, 0, 0.95); color:white"></a>
+                        </li>
+                        {% else %}
+                        <li>
+                            <a class="far fa-bookmark" style="box-shadow: 0 8px 16px rgba(0, 0, 0, 0.95);"></i>
+                        </li>
                         {% endif %}
                         {% endfor %}
                         {% endif %}
-                        </ul>
-                    </div>
-                    <div class="data">
-                        <div class="content" style="background-color:rgba(255,255,255,0.85);">
-                            <p><span class="author text-black font-weight-bolder">{{post.offered_by}}</span>
+                    </ul>
+                    <a href="{% url 'mainapp:detail' post.id post.slug %}">
+                        <img src="{{post.image.url}}" class="card-img-top">
+                    </a>
+                    <div class="card-body bg-white" style="border-radius:0 0 15px 15px;box-shadow: 0 15px 12px rgba(0, 0, 0, 0.2)">
+                        <p><span class="author text-black font-weight-bolder">{{post.offered_by|truncatewords:"3"}}</span>
                             <span class="text-black font-weight-bolder pr-2" style="float:right!important">Status 
                             <span class="badge badge-success badge">
-                                {% if post.status == 'Open' %}
-                                Open
-                                {% else %}
-                                Ongoing
-                                {% endif %}
-                            </span></span></p>
-                            <h1 class="title text-black" style=""><a href="{% url 'mainapp:detail' post.id post.slug %}">{{post.title|truncatewords:"5"}}</a></h1>
-                            <p class="text text-black pt-3" style="font-size:18px"><a href="{% url 'mainapp:detail' post.id post.slug %}">{{post.challenge_summary|truncatechars:"150"|safe}}</a></p>
-                            <br><br>
-                            <p class="text-black pt-3 font-weight-bolder"><i class="fas fa-trophy text-brown"></i>&nbsp;{{post.prize|truncatechars:"40"|safe}}</p>
-                            
-                        </div>
+                            {% if post.status == 'Open' %}
+                            Open
+                            {% else %}
+                            Ongoing
+                            {% endif %}
+                            </span></span>
+                        </p>
+                        <h5 class="card-title"><a href="{% url 'mainapp:detail' post.id post.slug %}">{{post.title|truncatewords:"5"}}</a></h5>
+                        <p class="card-text">{{post.challenge_summary|truncatechars:"150"|safe}}</p>
+                        <p class="text-black pt-3 font-weight-bolder"><i class="fas fa-trophy text-brown"></i>&nbsp;{{post.prize|truncatechars:"40"|safe}}</p>
                     </div>
                 </div>
+                {% endfor %}
             </div>
-        </div>
-        {% endfor %}
         </div>
     </div>
     <br><br>

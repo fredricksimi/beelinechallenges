@@ -97,6 +97,7 @@ def challenges(request):
     }
     return render(request, 'mainapp/challenges.html', context)
 
+
 def open_challenges(request):
     challenges = Challenges.objects.all().filter(status='Open').order_by('date_posted')
     the_tags = ChallengeTag.objects.all()[:12]
