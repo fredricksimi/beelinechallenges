@@ -126,50 +126,51 @@
             </div>
         </section>
 <section class="section section-lg bg-soft">
-    <div class="container-fluid">
+    <div class="container" style="max-width: 1300px;">
         <div class="row">
-            <div class="card-deck">
                 {% for challenge in posts.object_list %}
-                <div class="card-animate-up-3 col-md-4 mt-5" style="border-radius:15px;">
-                    <div class="date" style="background-color:#EE5050; padding:2px 4px; border-radius:5px;position: absolute;top: 14px;left:30px;">
-                        {% if challenge.status == 'Open' %}
-                        <span class="day font-weight-bolder text-white">{{challenge.open_until|timeuntil:challenge.date_posted}} left</span>
-                        {% else %}
-                        <span class="day font-weight-bolder text-white">Ongoing</span>
-                        {% endif %}
-                    </div>
-                    <ul class="menu-content" style="position: absolute;top: 14px;right: 30px;">
-                        {% if user.is_authenticated %}
-                        {% for cha in challenge.favourite.all%}
-                        {% if cha.username %}
-                        <li>
-                            <a class="fas fa-bookmark" style="box-shadow: 0 8px 16px rgba(0, 0, 0, 0.95); color:white"></a>
-                        </li>
-                        {% else %}
-                        <li>
-                            <a class="far fa-bookmark" style="box-shadow: 0 8px 16px rgba(0, 0, 0, 0.95);"></i>
-                        </li>
-                        {% endif %}
-                        {% endfor %}
-                        {% endif %}
-                    </ul>
-                    <a href="{% url 'mainapp:detail' challenge.id challenge.slug %}">
-                        <img src="{{challenge.image.url}}" class="card-img-top">
-                    </a>
-                    <div class="card-body bg-white" style="border-radius:0 0 15px 15px;box-shadow: 0 15px 12px rgba(0, 0, 0, 0.2)">
-                        <p><span class="author text-black font-weight-bolder">{{challenge.offered_by|truncatewords:"3"}}</span>
-                            <span class="text-black font-weight-bolder pr-2" style="float:right!important">Status 
-                            <span class="badge badge-success badge">
+                <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 card-group">
+                    <div class="card animate-up-3 mt-5" style="border-radius:15px;">
+                        <div class="date" style="background-color:#EE5050; padding:2px 4px; border-radius:5px;position: absolute;top: 14px;left:16px;">
                             {% if challenge.status == 'Open' %}
-                            Open
+                            <span class="day font-weight-bolder text-white">{{challenge.open_until|timeuntil:challenge.date_posted}} left</span>
                             {% else %}
-                            Ongoing
+                            <span class="day font-weight-bolder text-white">Ongoing</span>
                             {% endif %}
-                            </span></span>
-                        </p>
-                        <h5 class="card-title"><a href="{% url 'mainapp:detail' challenge.id challenge.slug %}">{{challenge.title|truncatewords:"5"}}</a></h5>
-                        <p class="card-text">{{challenge.challenge_summary|truncatechars:"150"|safe}}</p>
-                        <p class="text-black pt-3 font-weight-bolder"><i class="fas fa-trophy text-brown"></i>&nbsp;{{challenge.prize|truncatechars:"40"|safe}}</p>
+                        </div>
+                        <ul class="menu-content" style="position: absolute;top: 14px;right: 16px;">
+                            {% if user.is_authenticated %}
+                            {% for cha in challenge.favourite.all%}
+                            {% if cha.username %}
+                            <li>
+                                <a class="fas fa-bookmark" style="box-shadow: 0 8px 16px rgba(0, 0, 0, 0.95); color:white"></a>
+                            </li>
+                            {% else %}
+                            <li>
+                                <a class="far fa-bookmark" style="box-shadow: 0 8px 16px rgba(0, 0, 0, 0.95);"></i>
+                            </li>
+                            {% endif %}
+                            {% endfor %}
+                            {% endif %}
+                        </ul>
+                        <a href="{% url 'mainapp:detail' challenge.id challenge.slug %}">
+                            <img src="{{challenge.image.url}}" class="card-img-top">
+                        </a>
+                        <div class="card-body bg-white" style="border-radius:0 0 15px 15px;box-shadow: 0 15px 12px rgba(0, 0, 0, 0.2)">
+                            <p><span class="author text-black font-weight-bolder">{{challenge.offered_by|truncatewords:"3"}}</span>
+                                <span class="text-black font-weight-bolder pr-2" style="float:right!important">Status 
+                                <span class="badge badge-success badge">
+                                {% if challenge.status == 'Open' %}
+                                Open
+                                {% else %}
+                                Ongoing
+                                {% endif %}
+                                </span></span>
+                            </p>
+                            <h5 class="card-title"><a href="{% url 'mainapp:detail' challenge.id challenge.slug %}">{{challenge.title|truncatewords:"5"}}</a></h5>
+                            <p class="card-text">{{challenge.challenge_summary|truncatechars:"150"|safe}}</p>
+                            <p class="text-black pt-3 font-weight-bolder"><i class="fas fa-trophy text-brown"></i>&nbsp;{{challenge.prize|truncatechars:"40"|safe}}</p>
+                        </div>
                     </div>
                 </div>
                 {% endfor %}

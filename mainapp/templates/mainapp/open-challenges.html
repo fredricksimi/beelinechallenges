@@ -127,19 +127,19 @@
             </div>
         </section>
 <section class="section section-lg bg-soft">
-    <div class="container-fluid">
-        <div class="rowa">
-            <div class="card-deck">
-                {% for challenge in challenges.object_list %}
-                <div class="card-animate-up-3 col-md-4 mt-5" style="border-radius:15px;">
-                    <div class="date" style="background-color:#EE5050; padding:2px 4px; border-radius:5px;position: absolute;top: 14px;left:30px;">
+    <div class="container" style="max-width:1300px;">
+        <div class="row">
+            {% for challenge in challenges.object_list %}
+            <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 card-group">
+                <div class="card animate-up-3 mt-5" style="border-radius:15px;">
+                    <div class="date" style="background-color:#EE5050; padding:2px 4px; border-radius:5px;position: absolute;top: 14px;left:16px;">
                         {% if challenge.status == 'Open' %}
                         <span class="day font-weight-bolder text-white">{{challenge.open_until|timeuntil:challenge.date_posted}} left</span>
                         {% else %}
                         <span class="day font-weight-bolder text-white">Ongoing</span>
                         {% endif %}
                     </div>
-                    <ul class="menu-content" style="position: absolute;top: 14px;right: 30px;">
+                    <ul class="menu-content" style="position: absolute;top: 14px;right: 16px;">
                         {% if user.is_authenticated %}
                         {% for cha in challenge.favourite.all%}
                         {% if cha.username %}
@@ -173,8 +173,8 @@
                         <p class="text-black pt-3 font-weight-bolder"><i class="fas fa-trophy text-brown"></i>&nbsp;{{challenge.prize|truncatechars:"40"|safe}}</p>
                     </div>
                 </div>
-                {% endfor %}
             </div>
+            {% endfor %}
         </div>
     </div>
     <br><br>
