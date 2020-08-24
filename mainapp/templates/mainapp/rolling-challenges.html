@@ -155,7 +155,7 @@
                         {% endif %}
                     </ul>
                     <a href="{% url 'mainapp:detail' post.id post.slug %}">
-                        <img src="{{post.image.url}}" class="card-img-top">
+                        <img src="{{post.image.url}}" class="card-img-top" style="height:200px;width:100%">
                     </a>
                     <div class="card-body bg-white" style="border-radius:0 0 15px 15px;box-shadow: 0 15px 12px rgba(0, 0, 0, 0.2)">
                         <p><span class="author text-black font-weight-bolder">{{post.offered_by|truncatewords:"3"}}</span>

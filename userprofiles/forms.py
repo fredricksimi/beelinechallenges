@@ -13,6 +13,8 @@ class ProfileUpdateForm(forms.ModelForm):
     first_name = forms.CharField(label='First Name', widget=forms.TextInput(attrs={"placeholder":"Klaus"}))
     last_name = forms.CharField(label='Last Name', widget=forms.TextInput(attrs={"placeholder":"Mikaelson"}))
     organization = forms.CharField(label='Organization', widget=forms.TextInput(attrs={"placeholder":"The Originals Organization"}))
+    consent_to_share_my_information = forms.CheckboxInput()
+    consent_to_view_my_bookmarks = forms.CheckboxInput()
     # photo = ProcessedImageField(
     #     spec_id='userprofile:profile:photo',
     #     label=('Profile Photo'),
@@ -27,4 +29,4 @@ class ProfileUpdateForm(forms.ModelForm):
         username = None
         fields = [ 
             # 'photo', 
-            'first_name', 'last_name', 'organization', 'nationality', 'country_of_residence', 'age_group', 'sex']
+            'first_name', 'last_name', 'organization', 'nationality', 'country_of_residence', 'age_group', 'sex', 'consent_to_share_my_information', 'consent_to_view_my_bookmarks']

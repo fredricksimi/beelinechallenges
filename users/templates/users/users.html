@@ -37,7 +37,7 @@
             </a>
           </li>
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" aria-expanded="false" data-toggle="dropdown">
+            <a href="#" class="nav-link dropdown-toggle" aria-expanded="false" data-toggle="dropdown">
                 <span class="nav-link-inner-text ">Challenges</span>
 
             </a>
@@ -64,7 +64,7 @@
                             <span class="icon icon-sm icon-primary"><i
                                     class="fas fa-sync-alt" style="color:#0648B3!important;"></i></span>
                             <div class="ml-4">
-                                <span class="text-dark d-block">Rolling Challenges</span>
+                                <span class="text-dark d-block">Open With No Deadline</span>
                             </div>
                         </a>
                         <a href="{% url 'mainapp:coming-soon' %}"
@@ -108,7 +108,7 @@
           <li class="nav-item">
           <a href="{% url 'account_logout' %}" class="nav-link" >Logout</a>
           </li>
-          {% endif %}
+          {% endif %}  
         </ul>
       </div>
     </div>
@@ -117,31 +117,12 @@
   <div class="main-content" id="panel">
 
     <!-- Header -->
-    <div class="header pb-6" style="background-image: linear-gradient(#061161, #780206);">
-      <div class="container-fluid">
-        <div class="header-body">
-          <div class="row align-items-center py-4">
-
-
-          </div>
+    <div class="header pb-6" style="background-image: linear-gradient(to right, #1a2a6c, #b21f1f, #fdbb2d);">
+        <div class="container-fluid">
+            <div class="header-body">
+                <div class="row align-items-center py-4"></div>
 <div>
-<h1 class="display-2 text-white text-center mt-6 mb-3"><b>{{the_post.title|upper}}</b></h1>
-<p class="text-white text-center"><i class="fa fa-bullhorn"></i>&nbsp;Targeted Audience: <b>{% for aud in the_post.targeted_audience.all %}{{aud.name}}{% endfor %}</p>
-<p class="text-white text-center"><i class="fa fa-phone"></i>&nbsp;Point of Contact: <b>{{the_post.point_of_contact}}</b></p>
-<p class="text-white text-center"><i class="fa fa-trophy"></i>&nbsp;<b>Award: <b>{{the_post.prize}}</b></b></p>
-<p class="text-white text-center"><i class="fa fa-clock"></i>&nbsp;Duration: <a class="btn btn-sm btn-neutral"><span style="color:black!important">{{the_post.open_until|timeuntil:the_post.date_posted}} left</span></a></p>
-<div class="row align-items-center justify-content-xl-between">
-  <div class="col-xl-12">
-    <div class="text-center text-xl-right">
-      <p class="text-white pt-5"><span class="pt-3 pr-3 pl-3 pb-3" style="background-color:rgba(0,0,0,0.5)"><span class="small">Share this post now </span>
-      &nbsp;&nbsp;&nbsp; <a href="whatsapp://send?text=https://beeline-challenges.com/{{the_post.get_absolute_url}}" target="_blank"><i class="fab fa-whatsapp icon icon-sm icon-success" style="color:#05A677!important;"></i></a>
-      &nbsp;&nbsp;&nbsp; <a href="https://www.facebook.com/sharer/sharer.php?u=https://beeline-challenges.com/{{the_post.get_absolute_url}}" target="_blank"><i class="fab fa-facebook-f icon icon-sm icon-light"></i></a>
-      &nbsp;&nbsp;&nbsp; <a href="https://twitter.com/share?url=https://beeline-challenges.com/{{the_post.get_absolute_url}}" target="_blank"><i class="fab fa-twitter icon icon-sm icon-info" style="color:#11cdef!important;"></i></a></span></p>
-    </div>
-  </div>
-</div>
-
-
+<h1 class="display-3 text-white text-center mt-6 mb-3"><b>Users who have Bookmarked this Challenge</b></h1>
 </div>
 <br>
 <br>
@@ -149,92 +130,51 @@
       </div>
     </div>
     <!-- Page content -->
-    <div class="container-fluid mt--6">
-
-      <div class="row">
-        <div class="col-xl-8">
-          <div class="card">
-            <div class="card-header border-0">
-            <div class="col text-right">
-            {% if user.is_authenticated %}
-              {% if is_favourite %}
-                <a href="{% url 'mainapp:favourite_post' the_post.id the_post.slug %}" id="removemark" class="btn btn-sm btn-success">Bookmarked&nbsp;
-                  <i class="fas fa-check"></i></a>&nbsp;
-                  <span class="text small"> by <a href="{% url 'mainapp:interested-people' the_post.id the_post.slug %}" style="text-decoration: underline;">{{interested_people|length }}</a></span>
-              {% else %}
-              <a href="{% url 'mainapp:favourite_post' the_post.id the_post.slug%}" id="addmark" class="btn btn-sm btn-primary">Bookmark&nbsp;
-                <i class="fas fa-bookmark"></i></a>&nbsp;
-                <span class="text small"> by <a href="{% url 'mainapp:interested-people' the_post.id the_post.slug %}" style="text-decoration: underline;">{{interested_people|length }}</a></span>
-              {% endif %}
-            {% endif %}
-            </div>
-            </div>
-            <div class="pr-4 pl-4 pt-3">
-              <h2>Description</h2>
-              <p>{{the_post.description|safe}}</p>
-            </div>
-            <hr class="my-4" />
-            <div class="pr-4 pl-4 pt-4">
-              <h2>Who can Participate</h2>
-              <p>{{the_post.who_can_participate|safe}}</p>
-            </div>
-            <hr class="my-4" />
-            <div class="pr-4 pl-4 pt-4">
-              <h2>How to Participate</h2>
-              <p>{{the_post.how_to_participate|safe}}</p>
-            </div>
-            <hr class="my-4" />
-            <div class="pr-4 pl-4 pt-4">
-              <h2>Additional Information</h2>
-              <p>{{the_post.additional_information|safe}}</p>
-            </div>
-            <br>
-            <div class="col text-center mt-4 mb-6">
-            <a href="{{the_post.external_website_url}}" class="btn btn-success">Visit Original Site</a>
-            <a href="{{the_post.participate_link}}" class="btn btn-primary">Participate</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-4">
-          <div class="card">
-            <div class="card-header border-0">
-              <div class="row align-items-center">
-                <div class="col">
-                  <h3 class="mb-0">Related Challenges</h3>
+<div class="container-fluid mt--6">
+    <div class="row">
+        <div class="col-xl-6">
+            <div class="card">
+                <div class="card-header border-0">
                 </div>
-                <div class="col text-right">
-                  <!--<a href="#!" class="btn btn-sm btn-primary">See all</a>-->
+                <div class="pr-4 pl-4 pt-3 pb-5">
+                    <h2>{{the_post.title}}</h2>
+                    {% for theuser in interested_people %}
+                    <p><a href="{% url 'mainapp:the-user' theuser.id %}">
+                        {% if theuser.first_name and theuser.last_name %}
+                        {{theuser.first_name}}&nbsp;{{theuser.last_name}}
+                        {% else %}
+                        {{theuser.username}}
+                        {% endif %}
+                    </a></p>
+                    {% endfor %}
                 </div>
-              </div>
             </div>
-            <div class="">
-              <ul class="list-group list-group-flush list pr-4 pl-4 pb-4">
-                {% for otherchallenge in allchallenges %}
-                  {% if otherchallenge.id != the_post.id %}
-                <li class="list-group-item px-0">
-                  <div class="row align-items-center">
-                    <div class="col-auto">
-                      <!-- Avatar -->
-                      <a href="#" class="avatar rounded-circle" style="background-color:white!important;">
-                        <p style="margin-top:16px;font-size:30px; color:rgba(0,0,0,.15) !important;"><b>0{{forloop.counter}}</b></p>
-                      </a>
-                    </div>
-                    <div class="col">
-                      <h3><a href="{% url 'mainapp:detail' otherchallenge.id otherchallenge.slug %}">{{otherchallenge.title}}</a></h3>
-                      <div>
-                        <p class="small text-muted">{{otherchallenge.challenge_summary|truncatechars:"200"|safe}}</p>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-                {% endif %}
-                {% endfor %}
-
-              </ul>
-            </div>
-          </div>
         </div>
-      </div>
+        <div class="col-xl-3">
+            <div class="card">
+                <div class="card-header border-0">
+                    <p class=" font-weight-bolder">AUDIENCES</p>
+                </div>
+                <div class="pr-4 pl-4 pb-5 mt--2">
+                    {% for audience in ten_audiences %}
+                    <a href="{% url 'mainapp:audience-tagged' audience.id %}" class="small" style="background-color: #d1f2ff; padding: 4px 10px; border-radius:5px">{{audience.name}}</a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-3">
+            <div class="card">
+                <div class="card-header border-0">
+                    <p class=" font-weight-bolder">TAGS</p>
+                </div>
+                <div class="pr-4 pl-4 pb-5 mt--2">
+                    {% for tag in ten_tags %}
+                    <a href="{% url 'mainapp:tagged' tag.id %}" class="small text-white" style="background-color: #9461c1; padding: 4px 10px; border-radius:5px">#{{tag.name}}</a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
       <br>
 {% endblock content %}
 

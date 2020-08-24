@@ -142,20 +142,16 @@
                     <ul class="menu-content" style="position: absolute;top: 14px;right: 16px;">
                         {% if user.is_authenticated %}
                         {% for cha in challenge.favourite.all%}
-                        {% if cha.username %}
+                        {% if cha.username == user.username %}
                         <li>
                             <a class="fas fa-bookmark" style="box-shadow: 0 8px 16px rgba(0, 0, 0, 0.95); color:white"></a>
-                        </li>
-                        {% else %}
-                        <li>
-                            <a class="far fa-bookmark" style="box-shadow: 0 8px 16px rgba(0, 0, 0, 0.95);"></i>
                         </li>
                         {% endif %}
                         {% endfor %}
                         {% endif %}
                     </ul>
                     <a href="{% url 'mainapp:detail' challenge.id challenge.slug %}">
-                        <img src="{{challenge.image.url}}" class="card-img-top">
+                        <img src="{{challenge.image.url}}" class="card-img-top" style="height:200px;width:100%">
                     </a>
                     <div class="card-body bg-white" style="border-radius:0 0 15px 15px;box-shadow: 0 15px 12px rgba(0, 0, 0, 0.2)">
                         <p><span class="author text-black font-weight-bolder">{{challenge.offered_by|truncatewords:"3"}}</span>

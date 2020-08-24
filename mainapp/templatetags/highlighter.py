@@ -8,7 +8,7 @@ def highlight(text, search):
     rgx = compile(rescape(search), IGNORECASE)
     return mark_safe(
         rgx.sub(
-            lambda m: '<b style="background-color: #fe0; padding: 3px 8px; border-radius: 8px; color:#000">{}</b>'.format(m.group()),
-            text
+            lambda m: '<b style="background-color: #fe0; padding: 1px 2px; border-radius: 8px; color:#000">{}</b>'.format(m.group()),
+            str(text)
         )
     )

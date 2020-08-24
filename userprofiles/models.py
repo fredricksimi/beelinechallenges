@@ -23,7 +23,7 @@ AGE_RANGE = (
 ) 
 # Create your models here.
 class Profile(models.Model):
-    username = None
+    # username = Nonee
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=150)
     last_name = models.CharField(max_length=150)
@@ -31,8 +31,9 @@ class Profile(models.Model):
     country_of_residence = models.CharField(choices=COUNTRIES, max_length=150)
     organization = models.CharField(max_length=50, default='')
     age_group = models.CharField(choices=AGE_RANGE, max_length=50, default='', blank=True, null=True)
-    # date_of_birth = models.DateField(null=True)
     sex = models.CharField(choices=GENDER, max_length=200)
+    consent_to_share_my_information = models.BooleanField(default=False)
+    consent_to_view_my_bookmarks = models.BooleanField(default=False)
     # photo = ProcessedImageField(upload_to='profile_pics/',
     #                                 processors=[ResizeToFill(100,100)],
     #                                 format='JPEG',

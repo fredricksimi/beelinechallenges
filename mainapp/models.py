@@ -37,7 +37,7 @@ class Challenges(models.Model):
     description = RichTextUploadingField()
     external_website_url = models.CharField(max_length=150, default="")
     participate_link = models.CharField(max_length=200, default="")
-    targeted_audience = models.ForeignKey(ChallengeAudience, on_delete=models.CASCADE)
+    targeted_audience = models.ManyToManyField(ChallengeAudience)
     favourite = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="fav_posts", blank=True, editable=False)
     tags = models.ManyToManyField(ChallengeTag)
     who_can_participate = RichTextUploadingField()

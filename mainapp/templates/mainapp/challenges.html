@@ -127,7 +127,52 @@
         </section>
 <section class="section section-lg bg-soft">
     <div class="container" style="max-width:1300px;">
+        <form action="{% url 'mainapp:search_results' %}" method="get" class="navbar-search navbar-search-light form-inline mr-sm-3">
+            <div class="form-group mb-0">
+              <div class="input-group input-group-alternative input-group-merge">
+                <div class="input-group-prepend" style="border-radius: 2rem;">
+                  <span class="input-group-text"><i class="fas fa-search"></i></span>
+                </div>
+                <input class="form-control" name="q" placeholder="Search by Sponsor's Name" type="text" style="width:250px;">
+                <button class="btn btn-success my-2 my-sm-0 font-normal" type="submit">Search</button>
+              </div>
+            </div>
+          </form>
+        <br>
         <div class="row">
+            <div class="col-xl-6">
+                <div class="card">
+                    <div class="card-header border-0">
+                        <p class=" font-weight-bolder">AUDIENCES</p>
+                    </div>
+                    <div class="pr-4 pl-4 pb-5 mt--2">
+                        <ul class="list-inline">
+                        {% for audience in the_audiences %}
+                        <li class="list-inline-item pb-2">
+                        <a href="{% url 'mainapp:audience-tagged' audience.id %}" class="small" style="background-color: #d1f2ff; padding: 4px 10px; border-radius:5px">{{audience.name}}</a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6">
+                <div class="card">
+                    <div class="card-header border-0">
+                        <p class=" font-weight-bolder">TAGS</p>
+                    </div>
+                    <div class="pr-4 pl-4 pb-5 mt--2">
+                        <ul class="list-inline">
+                        {% for tag in the_tags %}
+                        <li class ="list-inline-item pb-2">
+                        <a href="{% url 'mainapp:tagged' tag.id %}" class="small text-white" style="background-color: #9461c1; padding: 4px 10px; border-radius:5px">#{{tag.name}}</a>
+                        </li>
+                        {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <br>
             {% for post in posts.object_list %}
             <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 card-group">
                 <!-- <div class="col-sm-4"> -->
@@ -141,21 +186,17 @@
                     </div>
                     <ul class="menu-content" style="position: absolute;top: 14px;right: 16px;">
                         {% if user.is_authenticated %}
-                        {% for cha in post.favourite.all%}
-                        {% if cha.username %}
+                        {% for cha in post.favourite.all %}
+                        {% if cha.username == user.username %}
                         <li>
                             <a class="fas fa-bookmark" style="box-shadow: 0 8px 16px rgba(0, 0, 0, 0.95); color:white"></a>
-                        </li>
-                        {% else %}
-                        <li>
-                            <a class="far fa-bookmark" style="box-shadow: 0 8px 16px rgba(0, 0, 0, 0.95);"></i>
                         </li>
                         {% endif %}
                         {% endfor %}
                         {% endif %}
                     </ul>
                     <a href="{% url 'mainapp:detail' post.id post.slug %}">
-                        <img src="{{post.image.url}}" class="card-img-top">
+                        <img src="{{post.image.url}}" class="card-img-top" style="height:200px;width:100%">
                     </a>
                     <div class="card-body bg-white" style="border-radius:0 0 15px 15px;box-shadow: 0 15px 12px rgba(0, 0, 0, 0.2)">
                         <p><span class="author text-black font-weight-bolder">{{post.offered_by|truncatewords:"3"}}</span>
