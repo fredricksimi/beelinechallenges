@@ -72,7 +72,7 @@ ROOT_URLCONF = 'challengegov.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [ 
+        'DIRS': [
             os.path.join(BASE_DIR, 'users/templates'),
             os.path.join(BASE_DIR, 'templates'),
             os.path.join(BASE_DIR, 'templates/account'),
@@ -203,7 +203,9 @@ CKEDITOR_CONFIGS = {
         'allowedContent': True,
         'height': '250px',
         'width': '66%',
-        
+        'styles': {'font-family':'#(family)'},
+        'overides': [{ 'element': 'font', 'attributes': {'face': 'null'}}]
+
 
     },
 }

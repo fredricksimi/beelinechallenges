@@ -5,17 +5,8 @@ from .forms import ChallengesModelForm
 class ChallengesAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug':('title',)}
     search_fields = ['title']
-
-    # def get_form(self, request, obj=None, **kwargs):
-    #     if obj.status == "Rolling":
-    #         self.exclude('open_until')
-    #     form = super(ChallengesAdmin, self).get_form(request, obj, **kwargs)
-    #     return form
-    # if status == "Rolling":
-    #     exclude('open_until')
-
     fieldsets = (
-        (None, {
+        ('', {
             'fields': ('title', 'slug', 'offered_by',
             'image', 'challenge_summary', 'description',
             'external_website_url', 'participate_link',
@@ -25,14 +16,13 @@ class ChallengesAdmin(admin.ModelAdmin):
             'classes': ('predefined',)
         }),
         (None, {
-            'fields': (('open_until'),),
+            'fields': ('open_until',),
             'classes': ('abcdefg')
         })
     )
-
     form = ChallengesModelForm
     class Media:
-        js = ('/static/admin/js/base.js')
+        js = ('mainapp/js/base.js',)
 
 admin.site.site_header = "Research Administration"
 admin.site.site_title = "Research"
