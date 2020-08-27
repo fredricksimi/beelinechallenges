@@ -45,9 +45,10 @@ class Challenges(models.Model):
     prize = models.CharField(max_length=150, help_text="Include the currency and amount in this field")
     additional_information = RichTextUploadingField()
     point_of_contact = models.TextField()
+    status = models.CharField(choices=STATUS, max_length=200, default='Open')
     date_posted = models.DateTimeField(default=timezone.now, db_index=True)
     open_until = models.DateTimeField(null=True, blank=True, db_index=True)
-    status = models.CharField(choices=STATUS, max_length=200, default='Open')
+    
 
 
     class Meta:

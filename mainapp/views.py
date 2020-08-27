@@ -8,6 +8,8 @@ from datetime import datetime
 from .models import Challenges, ChallengeTag, ChallengeAudience
 from userprofiles.models import Profile
 from django.core.paginator import Paginator, EmptyPage, InvalidPage
+from django.http import JsonResponse
+from django.template.loader import render_to_string
 
 """This is a filter for Challenges with tags e.g Education, Science, Energy e.t.c"""
 def tagged(request, id):
@@ -80,7 +82,14 @@ def all_categories(request):
 
 """This displays all the latest challenges in the system"""
 def challenges(request):
-    posts_list = Challenges.objects.all().filter(Q(status='Open') | Q(status='Rolling')).order_by('-id')
+    ctx = {}
+    url_parameter = request.GET.get("q")
+    if url_parameter:
+        posts_list = Challenges.objects.filter(offered_by__icontains=url_parameter)
+    else:
+        posts_list = Challenges.objects.all().filter(Q(status='Open') | Q(status='Rolling')).order_by('-id')
+
+    ctx["posts_list"] = posts_list
     the_tags = ChallengeTag.objects.all()[:10]
     the_audiences=ChallengeAudience.objects.all()[:10]
     paginator = Paginator(posts_list, 18)
@@ -93,6 +102,14 @@ def challenges(request):
         posts = paginator.page(page)
     except(EmptyPage, InvalidPage):
         posts = paginator.page(paginator.num_pages)
+
+    if request.is_ajax():
+        html = render_to_string(
+            template_name = "mainapp/challenges-partial.html",
+            context={"posts":posts}
+        )
+        data_dict = {"html_from_view":html}
+        return JsonResponse(data=data_dict, safe=False)
 
     context = {
     'the_tags':the_tags,

@@ -1,5 +1,13 @@
 from django import forms
-from .models import Preapproved_challenge, ChallengeTag
+from .models import Preapproved_challenge, ChallengeTag, STATUS, Challenges
+
+class ChallengesModelForm(forms.ModelForm):
+    class Meta:
+        model = Challenges
+        fields = ('status',)
+        widgets = {
+            'status': forms.Select(choices=STATUS)
+        }
 
 
 class CreatePreapprovedChallengeForm(forms.ModelForm):

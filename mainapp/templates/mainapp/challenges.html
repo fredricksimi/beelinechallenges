@@ -3,6 +3,22 @@
 
 {% block css %}
 {% include 'mainapp/head1.html' %}
+<script src="{% static 'vendor/jquery/dist/jquery.min.js' %}"></script>
+<style>
+@keyframes blinker {
+from {opacity: 1.0;}
+to {opacity: 0.0;}
+}
+
+.blink {
+    text-decoration: blink;
+    animation-name: blinker;
+    animation-duration: 0.6s;
+    animation-iteration-count:infinite;
+    animation-timing-function:ease-in-out;
+    animation-direction: alternate;
+}
+</style>
 {% endblock css %}
 
 {% block content %}
@@ -127,17 +143,31 @@
         </section>
 <section class="section section-lg bg-soft">
     <div class="container" style="max-width:1300px;">
-        <form action="{% url 'mainapp:search_results' %}" method="get" class="navbar-search navbar-search-light form-inline mr-sm-3">
+        <div class="row">
+            <div class="col-xs-6">
+                <div class="navbar-search navbar-search-light form-inline mr-sm-3">
             <div class="form-group mb-0">
-              <div class="input-group input-group-alternative input-group-merge">
-                <div class="input-group-prepend" style="border-radius: 2rem;">
-                  <span class="input-group-text"><i class="fas fa-search"></i></span>
+                <div class="input-group input-group-alternative input-group-merge">
+                    <div class="input-group-prepend" style="border-radius: 2rem;">
+                    <span class="input-group-text"><i class="fas fa-search" id="search-icon"></i></span>
+                    </div>
+                    <input class="form-control" placeholder="Search by Sponsor's Name" type="text" id="user-input" style="width:250px;">
+                    <!-- <button class="btn btn-success my-2 my-sm-0 font-normal" type="submit">Search</button> -->
                 </div>
-                <input class="form-control" name="q" placeholder="Search by Sponsor's Name" type="text" style="width:250px;">
-                <button class="btn btn-success my-2 my-sm-0 font-normal" type="submit">Search</button>
-              </div>
             </div>
-          </form>
+                </div>
+            </div>
+            <div class="col-xs-6 form-inline">
+                <label class="form-control-label">Sort By</label>&nbsp;
+                <select class="select form-control-sm" name="" id="user-choice">
+                    <option value="RecentlyAdded">Recently Added</option>
+                    <option value="Alphabetically">Alphabetically A-Z</option>
+                    <option value="MoreTimeLeft">More Time Left</option>
+                    <option value="LessTimeLeft">Less Time Left</option>
+                </select>
+                
+            </div>
+        </div>
         <br>
         <div class="row">
             <div class="col-xl-6">
@@ -173,51 +203,9 @@
                 </div>
             </div>
             <br>
-            {% for post in posts.object_list %}
-            <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 card-group">
-                <!-- <div class="col-sm-4"> -->
-                <div class="card animate-up-3 mt-5" style="border-radius:15px;">
-                    <div class="date" style="background-color:#EE5050; padding:2px 4px; border-radius:5px;position: absolute;top: 14px;left:16px;">
-                        {% if post.status == 'Open' %}
-                        <span class="day font-weight-bolder text-white">{{post.open_until|timeuntil:post.date_posted}} left</span>
-                        {% else %}
-                        <span class="day font-weight-bolder text-white">Ongoing</span>
-                        {% endif %}
-                    </div>
-                    <ul class="menu-content" style="position: absolute;top: 14px;right: 16px;">
-                        {% if user.is_authenticated %}
-                        {% for cha in post.favourite.all %}
-                        {% if cha.username == user.username %}
-                        <li>
-                            <a class="fas fa-bookmark" style="box-shadow: 0 8px 16px rgba(0, 0, 0, 0.95); color:white"></a>
-                        </li>
-                        {% endif %}
-                        {% endfor %}
-                        {% endif %}
-                    </ul>
-                    <a href="{% url 'mainapp:detail' post.id post.slug %}">
-                        <img src="{{post.image.url}}" class="card-img-top" style="height:200px;width:100%">
-                    </a>
-                    <div class="card-body bg-white" style="border-radius:0 0 15px 15px;box-shadow: 0 15px 12px rgba(0, 0, 0, 0.2)">
-                        <p><span class="author text-black font-weight-bolder">{{post.offered_by|truncatewords:"3"}}</span>
-                            <span class="text-black font-weight-bolder pr-2" style="float:right!important">Status 
-                            <span class="badge badge-success badge">
-                            {% if post.status == 'Open' %}
-                            Open
-                            {% else %}
-                            Ongoing
-                            {% endif %}
-                            </span></span>
-                        </p>
-                        <h5 class="card-title"><a href="{% url 'mainapp:detail' post.id post.slug %}">{{post.title|truncatewords:"5"}}</a></h5>
-                        <p class="card-text">{{post.challenge_summary|truncatechars:"150"|safe}}</p>
-                        <p class="text-black pt-3 font-weight-bolder"><i class="fas fa-trophy text-brown"></i>&nbsp;{{post.prize|truncatechars:"40"|safe}}</p>
-                    </div>
-                </div>
-                <!-- </div> -->
-            </div>
-            {% endfor %}
+            
         </div>
+        {% include "mainapp/challenges-partial.html" %}
     </div>
     <br><br>
 <nav aria-label="Page navigation example">
