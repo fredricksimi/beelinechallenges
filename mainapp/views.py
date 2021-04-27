@@ -60,6 +60,13 @@ def audience_tagged(request, id):
     }
     return render(request, 'mainapp/audience_detail.html', context)
 
+def error_404(request, exception):
+    data = {}
+    return render(request, 'mainapp/404.html', data)
+
+def error_500(request):
+        data = {}
+        return render(request,'mainapp/500.html', data)
 
 """This displays *some* of the challenges in the system"""
 def home(request):

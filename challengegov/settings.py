@@ -12,10 +12,10 @@ from django.contrib.messages import constants as messages
 SECRET_KEY= config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = ['beeline-challenges.com', 'www.beeline-challenges.com', 'localhost', '64.227.8.238']
-
+ALLOWED_HOSTS = ['localhost','127.0.0.1']
+# APPEND_SLASH = False
 # CSRF_COOKIE_SECURE = True
 
 # SESSION_COOKIE_SECURE = True
@@ -43,10 +43,15 @@ INSTALLED_APPS = [
     'ckeditor_uploader',
     'imagekit',
     'tinymce',
+    'corsheaders',
     'sorl.thumbnail',
     'newsletter',
+    'graphene_django'
 ]
 
+GRAPHENE = {
+    'SCHEMA': 'mainapp.schema.schema'
+}
 
 
 AUTH_USER_MODEL = 'users.CustomUser'
@@ -57,6 +62,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -64,6 +70,29 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:8080",
+]
+CORS_ALLOW_METHODS = [
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
+]
+CORS_ALLOW_HEADERS = [
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+]
+APPEND_SLASH = False
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 ROOT_URLCONF = 'challengegov.urls'
@@ -73,8 +102,8 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join(BASE_DIR, 'users/templates'),
             os.path.join(BASE_DIR, 'templates'),
+            os.path.join(BASE_DIR, 'users/templates'),
             os.path.join(BASE_DIR, 'templates/account'),
         ],
         'APP_DIRS': True,
